@@ -509,14 +509,16 @@ section h2 {
 .timeline li {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 8px;
   color: #cbd5e1;
+  line-height: 1.45;
 }
 
 .timeline li svg {
   color: #67e8f9;
   flex: 0 0 auto;
-  margin-top: 3px;
+  margin-bottom: -1px;
 }
 
 .cards {
