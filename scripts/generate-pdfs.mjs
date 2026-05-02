@@ -90,7 +90,16 @@ function addHeader(doc, t) {
   const W = doc.page.width;
   doc.rect(0, 0, W, 160).fill('#0f172a');
   doc.circle(500, 25, 130).fillOpacity(0.22).fill('#22d3ee').fillOpacity(1);
-  if (fs.existsSync(photo)) doc.image(photo, 430, 42, { width: 95, height: 95, cover: [95, 95], align: 'center', valign: 'top' });
+  if (fs.existsSync(photo)) {
+    const photoSize = 95;
+    const photoX = 430;
+    const photoY = 42;
+    doc.save();
+    doc.roundedRect(photoX, photoY, photoSize, photoSize, 12).clip();
+    doc.image(photo, photoX, photoY, { cover: [photoSize, photoSize], align: 'center', valign: 'top' });
+    doc.restore();
+    doc.roundedRect(photoX, photoY, photoSize, photoSize, 12).strokeColor('rgba(255,255,255,0.35)').lineWidth(1).stroke();
+  }
   doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(30).text(common.name, 48, 42);
   doc.fillColor('#a5f3fc').fontSize(14).text(t.role, 48, 79, { width: 350 });
   doc.fillColor('#cbd5e1').font('Helvetica').fontSize(9).text(`${t.degree}  |  ${t.location}`, 48, 116);
