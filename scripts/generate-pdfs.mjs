@@ -4,15 +4,29 @@ import PDFDocument from 'pdfkit';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const outDir = path.join(root, 'public');
-const photo = path.join(outDir, 'marcel-wlotzka.jpg');
+const photoPath = path.join(outDir, 'marcel-wlotzka.jpg');
+
+// ----- Palette: Mainova-derived (powder-blue sidebar, navy text, cyan pop) -----
+const SIDE_BG     = '#D5E8F2';   // very pale powder blue sidebar
+const SIDE_TEXT   = '#002C77';   // Mainova navy
+const SIDE_MUTE   = '#5F7A99';
+const MAIN_BG     = '#FFFFFF';
+const INK         = '#001E55';
+const BODY        = '#3F506E';
+const ACCENT      = '#009AD8';   // Mainova cyan — signature highlight
+
+const A4 = { w: 595.28, h: 841.89 };
+const SIDEBAR_W = 215;
+const MAIN_X = SIDEBAR_W + 36;
+const MAIN_W = A4.w - MAIN_X - 40;
 
 const common = {
   name: 'Marcel Wlotzka',
   email: 'marcel@wlotzka.org',
   locationDE: 'Lautertal, Deutschland',
   locationEN: 'Lautertal, Germany',
-  bornDE: 'Geboren am 9. August 1989 in Goch, Deutschland',
-  bornEN: 'Born on August 9, 1989 in Goch, Germany',
+  bornDE: 'geboren am 9. August 1989 in Goch',
+  bornEN: 'born August 9, 1989 in Goch, Germany',
   linkedin: 'linkedin.com/in/marcel-wlotzka-5b61a0a4',
   skills: ['Objective-C','Swift','C / C++','C#','Java','JavaScript','TypeScript','PHP','Linux Server','Windows Server','ReactJS','Vue.js','Symfony','Laravel','Node.js','Chromium Embedded Framework'],
 };
@@ -23,15 +37,22 @@ const cv = {
     title: 'Lebenslauf',
     role: 'Sachgebietsleiter IT Strategie und Architektur',
     degree: 'M.Sc. Informatik',
+    contactTitle: 'KONTAKT',
     profileTitle: 'Profil',
     profile: 'IT-Strategie, Architektur und Innovation mit Praxisnähe: von Smart-City-Plattformen über KI und Automatisierung bis zu skalierbaren digitalen Lösungen. Ich verbinde technologische Tiefe mit strategischer Perspektive und befähige Teams, tragfähige digitale Lösungen umzusetzen.',
     experienceTitle: 'Beruflicher Werdegang',
     educationTitle: 'Schule & Studium',
+    educationShort: 'TU Darmstadt · Durchschnitt 1,87',
     skillsTitle: 'Kenntnisse & Technologien',
+    focusTitle: 'Schwerpunkte',
+    focus: ['IT Strategie', 'Enterprise Architektur', 'Smart City', 'KI & Automation', 'Innovation Mgmt.'],
     languagesTitle: 'Sprachen',
-    languages: 'Deutsch, Englisch in Wort und Schrift',
+    languagesShort: [
+      { label: 'Deutsch',  descriptor: 'Muttersprache' },
+      { label: 'Englisch', descriptor: 'verhandlungssicher' },
+    ],
     hobbiesTitle: 'Hobbies',
-    hobbies: 'Badminton, Drohne fliegen, Gitarre spielen',
+    hobbies: 'Badminton  ·  Drohne fliegen  ·  Gitarre spielen',
     location: common.locationDE,
     born: common.bornDE,
     experience: [
@@ -43,28 +64,35 @@ const cv = {
       ['08/2014 - 08/2016','2VizCon GmbH, Neu-Isenburg','App Developer',['Entwicklung von Apps für iOS, Android, Windows und Windows Phone','Weiterentwicklung eines App-Containers zur Darstellung webbasierter Inhalte','Entwicklung automatischer Build-Prozesse für Apps','Beratung der Geschäftsführung und Kunden in App-Fragen']],
       ['08/2009 - 08/2014','KWP GmbH & Co. KG, Neu-Isenburg','Werkstudent Web Developer',['Werkstudent, zwei Tage pro Woche als Web Developer','Eigenständige Weiterbildung zum App Developer','Verantwortung für viele IT-relevante Anliegen']],
       ['09/2008 - 06/2009','XYQOM GmbH, Waldbröl bei Köln','Schulische Aushilfe Template & Webentwicklung',['Template-Umsetzung in TypoLight / Contao für Kundenwebseiten','Erstellung kleinerer TypoLight-Erweiterungen','HTML5-Bestellsystem mit Konfigurator für KRONE-Sattelauflieger']],
-      ['07/2007 - 09/2009','Da Source Distribution, Köln','Schulische Aushilfe Online-Shop',['Pflege eines ASP.NET-basierten Online-Shops für DJ-Equipment und Schallplatten','API-Anbindung zur Synchronisation mit eBay und internationalen Online-Shops']]
+      ['07/2007 - 09/2009','Da Source Distribution, Köln','Schulische Aushilfe Online-Shop',['Pflege eines ASP.NET-basierten Online-Shops für DJ-Equipment und Schallplatten','API-Anbindung zur Synchronisation mit eBay und internationalen Online-Shops']],
     ],
     education: [
       ['04/2013 - 08/2018','Technische Universität Darmstadt','Master of Science Informatik mit Anwendungsfach IT-Management','Durchschnitt: 1,87','Schwerpunkte: Data and Knowledge Engineering, Human Computer Systems, Net Centric Systems, Software Engineering. Master Thesis in Englisch.'],
       ['10/2009 - 04/2013','Technische Universität Darmstadt','Bachelor of Science Informatik','Durchschnitt: 2,5','Bachelor Thesis: Delay-tolerante Datenübertragung in mobilen Sensornetzen.'],
-      ['1996 - 2009','Willibrord Gymnasium Emmerich, NRW','Abitur','Durchschnitt: 2,3','Abiturfächer: Mathe LK, Geschichte LK, Englisch, Informatik.']
-    ]
+      ['1996 - 2009','Willibrord Gymnasium Emmerich, NRW','Abitur','Durchschnitt: 2,3','Abiturfächer: Mathe LK, Geschichte LK, Englisch, Informatik.'],
+    ],
   },
   en: {
     file: 'Marcel_Wlotzka_CV_EN.pdf',
     title: 'Curriculum Vitae',
     role: 'Head of IT Strategy and Architecture Team',
     degree: 'M.Sc. Computer Science',
+    contactTitle: 'CONTACT',
     profileTitle: 'Profile',
     profile: 'IT strategy, architecture and innovation with hands-on depth: from smart-city platforms to AI, automation and scalable digital solutions. I combine technical depth with a strategic perspective and enable teams to deliver sustainable digital solutions.',
     experienceTitle: 'Professional Experience',
     educationTitle: 'Education',
+    educationShort: 'TU Darmstadt · GPA 1.87',
     skillsTitle: 'Skills & Technologies',
+    focusTitle: 'Focus Areas',
+    focus: ['IT Strategy', 'Enterprise Architecture', 'Smart City', 'AI & Automation', 'Innovation Mgmt.'],
     languagesTitle: 'Languages',
-    languages: 'German, English spoken and written',
+    languagesShort: [
+      { label: 'German',  descriptor: 'native' },
+      { label: 'English', descriptor: 'fluent' },
+    ],
     hobbiesTitle: 'Hobbies',
-    hobbies: 'Badminton, flying drones, playing guitar',
+    hobbies: 'Badminton  ·  Flying drones  ·  Playing guitar',
     location: common.locationEN,
     born: common.bornEN,
     experience: [
@@ -76,101 +104,167 @@ const cv = {
       ['08/2014 - 08/2016','2VizCon GmbH, Neu-Isenburg','App Developer',['Development of apps for iOS, Android, Windows and Windows Phone','Further development of an app container for web-based content','Development of automated build processes for apps','Advising management and customers on app-related questions']],
       ['08/2009 - 08/2014','KWP GmbH & Co. KG, Neu-Isenburg','Working Student Web Developer',['Working student, two days per week as web developer','Self-directed development into app development','Responsible for many IT-related topics']],
       ['09/2008 - 06/2009','XYQOM GmbH, Waldbröl near Cologne','Student Assistant Template & Web Development',['Template implementation in TypoLight / Contao for customer websites','Creation of smaller TypoLight extensions','HTML5 ordering system with configurator for KRONE semi-trailers']],
-      ['07/2007 - 09/2009','Da Source Distribution, Cologne','Student Assistant Online Shop',['Maintenance of an ASP.NET-based online shop for DJ equipment and vinyl records','API integration for synchronization with eBay and international online shops']]
+      ['07/2007 - 09/2009','Da Source Distribution, Cologne','Student Assistant Online Shop',['Maintenance of an ASP.NET-based online shop for DJ equipment and vinyl records','API integration for synchronization with eBay and international online shops']],
     ],
     education: [
       ['04/2013 - 08/2018','Technical University of Darmstadt','Master of Science Computer Science with minor in IT Management','Grade average: 1.87','Focus areas: Data and Knowledge Engineering, Human Computer Systems, Net Centric Systems, Software Engineering. Master thesis written in English.'],
       ['10/2009 - 04/2013','Technical University of Darmstadt','Bachelor of Science Computer Science','Grade average: 2.5','Bachelor thesis: Delay-tolerant data transmission in mobile sensor networks.'],
-      ['1996 - 2009','Willibrord Gymnasium Emmerich, NRW','Abitur / German university entrance qualification','Grade average: 2.3','Exam subjects: Mathematics advanced course, History advanced course, English, Computer Science.']
-    ]
-  }
+      ['1996 - 2009','Willibrord Gymnasium Emmerich, NRW','Abitur / German university entrance qualification','Grade average: 2.3','Exam subjects: Mathematics advanced course, History advanced course, English, Computer Science.'],
+    ],
+  },
 };
 
-function addHeader(doc, t) {
-  const W = doc.page.width;
-  doc.rect(0, 0, W, 160).fill('#0f172a');
-  doc.circle(500, 25, 130).fillOpacity(0.22).fill('#22d3ee').fillOpacity(1);
-  if (fs.existsSync(photo)) {
-    const photoSize = 95;
-    const photoX = 430;
-    const photoY = 42;
-    doc.save();
-    doc.roundedRect(photoX, photoY, photoSize, photoSize, 12).clip();
-    doc.image(photo, photoX, photoY, { cover: [photoSize, photoSize], align: 'center', valign: 'top' });
-    doc.restore();
-    doc.roundedRect(photoX, photoY, photoSize, photoSize, 12).strokeColor('rgba(255,255,255,0.35)').lineWidth(1).stroke();
-  }
-  doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(30).text(common.name, 48, 42);
-  doc.fillColor('#a5f3fc').fontSize(14).text(t.role, 48, 79, { width: 350 });
-  doc.fillColor('#cbd5e1').font('Helvetica').fontSize(9).text(`${t.degree}  |  ${t.location}`, 48, 116);
-  doc.text(`${common.email}  |  ${common.linkedin}`, 48, 130);
+// ------------------------------- Helpers -------------------------------
+function clipCircle(doc, cx, cy, r, draw) {
+  doc.save();
+  doc.circle(cx, cy, r).clip();
+  draw();
+  doc.restore();
 }
 
-function ensure(doc, y, needed = 90) {
-  if (y + needed > doc.page.height - 50) { doc.addPage(); return 52; }
-  return y;
+function paintBg(doc) {
+  doc.rect(0, 0, A4.w, A4.h).fill(MAIN_BG);
+  doc.rect(0, 0, SIDEBAR_W, A4.h).fill(SIDE_BG);
 }
-function section(doc, title, y) {
-  y = ensure(doc, y, 60);
-  doc.fillColor('#0f172a').font('Helvetica-Bold').fontSize(14).text(title, 48, y);
-  doc.moveTo(48, y + 20).lineTo(545, y + 20).strokeColor('#22d3ee').lineWidth(1.2).stroke();
-  return y + 34;
+
+function sectionTitle(doc, title) {
+  // Section titles in main column: navy bold + short cyan rule below
+  const x = MAIN_X;
+  doc.fillColor(INK).font('Helvetica-Bold').fontSize(13).text(title.toUpperCase(), x, doc.y, { width: MAIN_W, characterSpacing: 1.4 });
+  const y = doc.y + 4;
+  doc.moveTo(x, y).lineTo(x + 36, y).strokeColor(ACCENT).lineWidth(2).stroke();
+  doc.y = y + 12;
 }
-function paragraph(doc, text, y, opts = {}) {
-  y = ensure(doc, y, 60);
-  doc.fillColor(opts.color || '#334155').font(opts.bold ? 'Helvetica-Bold' : 'Helvetica').fontSize(opts.size || 9.5).text(text, opts.x || 48, y, { width: opts.width || 497, lineGap: 2 });
-  return doc.y + 8;
+
+function sideHeading(doc, t, y) {
+  doc.fillColor(ACCENT).font('Helvetica-Bold').fontSize(10).text(t, 24, y, { width: SIDEBAR_W - 48, characterSpacing: 1.4 });
+  return doc.y + 6;
 }
-function chips(doc, items, y) {
-  let x = 48; let rowY = y;
-  doc.font('Helvetica-Bold').fontSize(8);
-  for (const item of items) {
-    const w = Math.min(doc.widthOfString(item) + 18, 150);
-    if (x + w > 545) { x = 48; rowY += 24; }
-    doc.roundedRect(x, rowY, w, 17, 8).fill('#e0f2fe');
-    doc.fillColor('#0f172a').text(item, x + 9, rowY + 5, { width: w - 18, lineBreak: false });
-    x += w + 7;
+
+function ensureSpace(doc, need) {
+  if (doc.y + need > A4.h - 40) {
+    doc.addPage();
+    paintBg(doc);
+    doc.y = 50;
   }
-  return rowY + 30;
 }
+
+// ------------------------------- Build -------------------------------
 function generate(lang) {
   const t = cv[lang];
-  const doc = new PDFDocument({ size: 'A4', margin: 48, info: { Title: `${common.name} - ${t.title}`, Author: common.name } });
-  const file = path.join(outDir, t.file);
-  doc.pipe(fs.createWriteStream(file));
-  addHeader(doc, t);
-  let y = 188;
-  y = section(doc, t.profileTitle, y);
-  y = paragraph(doc, t.profile, y, { size: 10.5 });
-  y = section(doc, t.experienceTitle, y + 8);
+  const doc = new PDFDocument({
+    size: 'A4',
+    margin: 0,
+    info: { Title: `${common.name} - ${t.title}`, Author: common.name },
+  });
+  doc.pipe(fs.createWriteStream(path.join(outDir, t.file)));
+
+  paintBg(doc);
+
+  // ----- Sidebar -----
+  // photo with navy halo ring
+  const cx = SIDEBAR_W / 2;
+  const cy = 110;
+  const r = 70;
+  doc.circle(cx, cy, r + 6).fill(INK);
+  if (fs.existsSync(photoPath)) {
+    clipCircle(doc, cx, cy, r, () => {
+      doc.image(photoPath, cx - r, cy - r, { cover: [r * 2, r * 2], align: 'center', valign: 'center' });
+    });
+  }
+
+  let sy = 210;
+  sy = sideHeading(doc, t.contactTitle, sy);
+  doc.fillColor(SIDE_TEXT).font('Helvetica').fontSize(9).text(common.email, 24, sy, { width: SIDEBAR_W - 48 });
+  doc.fillColor(SIDE_MUTE).fontSize(8.5).text(common.linkedin, 24, doc.y + 4, { width: SIDEBAR_W - 48 });
+  doc.fillColor(SIDE_TEXT).fontSize(9).text(t.location, 24, doc.y + 4, { width: SIDEBAR_W - 48 });
+  doc.fillColor(SIDE_MUTE).fontSize(8.5).text(t.born, 24, doc.y + 4, { width: SIDEBAR_W - 48 });
+  sy = doc.y + 22;
+
+  sy = sideHeading(doc, t.educationTitle.toUpperCase(), sy);
+  doc.fillColor(SIDE_TEXT).font('Helvetica-Bold').fontSize(9.5).text(t.degree, 24, sy);
+  doc.fillColor(SIDE_MUTE).font('Helvetica').fontSize(8.5).text(t.educationShort, 24, doc.y + 1, { width: SIDEBAR_W - 48 });
+  sy = doc.y + 22;
+
+  sy = sideHeading(doc, t.languagesTitle.toUpperCase(), sy);
+  for (const l of t.languagesShort) {
+    doc.fillColor(SIDE_TEXT).font('Helvetica').fontSize(9).text(l.label, 24, sy);
+    doc.fillColor(SIDE_MUTE).fontSize(8.5).text(l.descriptor, 24, doc.y);
+    sy = doc.y + 8;
+  }
+  sy += 14;
+
+  sy = sideHeading(doc, t.focusTitle.toUpperCase(), sy);
+  doc.font('Helvetica').fontSize(9);
+  for (const f of t.focus) {
+    doc.circle(28, sy + 4.5, 1.6).fill(ACCENT);
+    doc.fillColor(SIDE_TEXT).text(f, 38, sy);
+    sy = doc.y + 4;
+  }
+  sy += 14;
+
+  sy = sideHeading(doc, t.hobbiesTitle.toUpperCase(), sy);
+  doc.fillColor(SIDE_TEXT).font('Helvetica').fontSize(9).text(t.hobbies, 24, sy, { width: SIDEBAR_W - 48 });
+
+  // ----- Main column -----
+  doc.y = 56;
+  doc.fillColor(INK).font('Helvetica-Bold').fontSize(28).text(common.name, MAIN_X, doc.y, { width: MAIN_W });
+  doc.fillColor(ACCENT).font('Helvetica-Bold').fontSize(12).text(t.role.toUpperCase(), MAIN_X, doc.y + 2, { width: MAIN_W, characterSpacing: 1 });
+  const ruleY = doc.y + 12;
+  doc.moveTo(MAIN_X, ruleY).lineTo(MAIN_X + 60, ruleY).strokeColor(ACCENT).lineWidth(2).stroke();
+  doc.y = ruleY + 14;
+
+  doc.fillColor(BODY).font('Helvetica').fontSize(10).text(t.profile, MAIN_X, doc.y, { width: MAIN_W, lineGap: 2.5, align: 'justify' });
+  doc.y += 22;
+
+  // Experience
+  ensureSpace(doc, 80);
+  sectionTitle(doc, t.experienceTitle);
   for (const [period, company, role, bullets] of t.experience) {
-    y = ensure(doc, y, 76);
-    doc.fillColor('#0284c7').font('Helvetica-Bold').fontSize(8.5).text(period, 48, y, { width: 95 });
-    doc.fillColor('#0f172a').font('Helvetica-Bold').fontSize(10.5).text(role, 155, y, { width: 390 });
-    doc.fillColor('#64748b').font('Helvetica').fontSize(8.5).text(company, 155, doc.y + 2, { width: 390 });
+    ensureSpace(doc, 70);
+    doc.fillColor(INK).font('Helvetica-Bold').fontSize(10.5).text(role, MAIN_X, doc.y, { width: MAIN_W });
+    doc.fillColor(ACCENT).font('Helvetica-Bold').fontSize(9).text(company, MAIN_X, doc.y + 1, { continued: true });
+    doc.fillColor(BODY).font('Helvetica').text('   ·   ' + period, { width: MAIN_W });
+    doc.y += 5;
     for (const b of bullets) {
-      doc.fillColor('#334155').fontSize(8.7).text(`- ${b}`, 168, doc.y + 3, { width: 370, lineGap: 1 });
+      ensureSpace(doc, 18);
+      doc.circle(MAIN_X + 3, doc.y + 4.5, 1.6).fill(ACCENT);
+      doc.fillColor(BODY).font('Helvetica').fontSize(9.5).text(b, MAIN_X + 12, doc.y, { width: MAIN_W - 12, lineGap: 1.5 });
+      doc.y += 3;
     }
-    y = doc.y + 10;
+    doc.y += 10;
   }
-  y = section(doc, t.educationTitle, y + 2);
-  for (const [period, institution, title, grade, details] of t.education) {
-    y = ensure(doc, y, 60);
-    doc.fillColor('#0284c7').font('Helvetica-Bold').fontSize(8.5).text(period, 48, y, { width: 95 });
-    doc.fillColor('#0f172a').font('Helvetica-Bold').fontSize(10.2).text(title, 155, y, { width: 390 });
-    doc.fillColor('#64748b').font('Helvetica').fontSize(8.5).text(`${institution} | ${grade}`, 155, doc.y + 2, { width: 390 });
-    doc.fillColor('#334155').fontSize(8.7).text(details, 155, doc.y + 3, { width: 390, lineGap: 1 });
-    y = doc.y + 10;
+
+  // Education
+  doc.y += 4;
+  ensureSpace(doc, 80);
+  sectionTitle(doc, t.educationTitle);
+  for (const [period, inst, title, grade, details] of t.education) {
+    ensureSpace(doc, 60);
+    doc.fillColor(INK).font('Helvetica-Bold').fontSize(10.5).text(title, MAIN_X, doc.y, { width: MAIN_W });
+    doc.fillColor(ACCENT).font('Helvetica-Bold').fontSize(9).text(inst, MAIN_X, doc.y + 1, { continued: true });
+    doc.fillColor(BODY).font('Helvetica').text(`   ·   ${period}   ·   ${grade}`, { width: MAIN_W });
+    doc.fillColor(BODY).font('Helvetica').fontSize(9.5).text(details, MAIN_X, doc.y + 4, { width: MAIN_W, lineGap: 1.5 });
+    doc.y += 14;
   }
-  y = section(doc, t.skillsTitle, y + 2);
-  y = chips(doc, common.skills, y);
-  y = section(doc, t.languagesTitle, y + 2);
-  y = paragraph(doc, t.languages, y);
-  y = section(doc, t.hobbiesTitle, y + 2);
-  y = paragraph(doc, t.hobbies, y);
+
+  // Skills
+  ensureSpace(doc, 80);
+  sectionTitle(doc, t.skillsTitle);
+  let chipX = MAIN_X, chipY = doc.y;
+  doc.font('Helvetica-Bold').fontSize(8.5);
+  for (const s of common.skills) {
+    const w = doc.widthOfString(s) + 20;
+    if (chipX + w > MAIN_X + MAIN_W) { chipX = MAIN_X; chipY += 26; }
+    doc.roundedRect(chipX, chipY, w, 18, 9).fill(ACCENT);
+    doc.fillColor('#FFFFFF').text(s, chipX + 10, chipY + 5.3, { width: w - 20, lineBreak: false });
+    chipX += w + 6;
+  }
+
   doc.end();
   console.log(`Generated public/${t.file}`);
 }
+
 fs.mkdirSync(outDir, { recursive: true });
 generate('de');
 generate('en');
