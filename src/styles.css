@@ -551,9 +551,9 @@ html[data-design="glow"][data-theme="light"] {
 .toast svg { color: var(--accent); flex: 0 0 auto; }
 
 /* =====================================================================
-   MAINOVA · light, brand-aligned (Navy + Cyan + Powder)
+   DOSSIER · light, brand-aligned (Navy + Cyan + Powder)
    ===================================================================== */
-html[data-design="mainova"] {
+html[data-design="dossier"] {
   --font-display: 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
 
@@ -597,35 +597,35 @@ html[data-design="mainova"] {
   --secondary-text: #002C77;
   --secondary-border: rgba(0, 44, 119, .2);
 }
-html[data-design="mainova"] .pill {
+html[data-design="dossier"] .pill {
   background: var(--accent-soft);
   border-color: rgba(0, 154, 216, .35);
   color: var(--text-strong);
 }
-html[data-design="mainova"] .stat,
-html[data-design="mainova"] .card,
-html[data-design="mainova"] .timeline article > button,
-html[data-design="mainova"] .photo-card {
+html[data-design="dossier"] .stat,
+html[data-design="dossier"] .card,
+html[data-design="dossier"] .timeline article > button,
+html[data-design="dossier"] .photo-card {
   background: #ffffff;
   border-color: var(--border);
   box-shadow: var(--shadow-soft);
   backdrop-filter: none;
 }
-html[data-design="mainova"] .timeline::before { background: rgba(0, 44, 119, .15); }
-html[data-design="mainova"] .dot { box-shadow: 0 0 18px rgba(0, 154, 216, .35); }
-html[data-design="mainova"] .tags span,
-html[data-design="mainova"] .chips span {
+html[data-design="dossier"] .timeline::before { background: rgba(0, 44, 119, .15); }
+html[data-design="dossier"] .dot { box-shadow: 0 0 18px rgba(0, 154, 216, .35); }
+html[data-design="dossier"] .tags span,
+html[data-design="dossier"] .chips span {
   background: var(--accent-soft);
   color: var(--text-strong);
 }
-html[data-design="mainova"] .card b { background: var(--accent-soft); color: var(--text-strong); }
-html[data-design="mainova"] .highlight {
+html[data-design="dossier"] .card b { background: var(--accent-soft); color: var(--text-strong); }
+html[data-design="dossier"] .highlight {
   background: var(--accent-soft);
   border-color: rgba(0, 154, 216, .25);
   color: var(--text-strong);
 }
-html[data-design="mainova"] .hobbies span { background: #ffffff; border: 1px solid var(--border); }
-html[data-design="mainova"] .contact {
+html[data-design="dossier"] .hobbies span { background: #ffffff; border: 1px solid var(--border); }
+html[data-design="dossier"] .contact {
   background: linear-gradient(135deg, #ffffff 0%, var(--accent-soft) 100%);
   border-color: rgba(0, 154, 216, .2);
 }
@@ -1080,7 +1080,7 @@ html[data-design="terminal"] footer::before { content: '$ echo '; color: var(--a
 }
 
 /* =====================================================================
-   LAYOUT: MAINOVA · Sidebar Resume
+   LAYOUT: DOSSIER · Sidebar Resume
    ===================================================================== */
 .m-layout {
   max-width: 1240px;
@@ -1875,8 +1875,8 @@ html[data-design="terminal"] footer::before { content: '$ echo '; color: var(--a
    DESIGN TOKENS for the 5 new designs
    ===================================================================== */
 
-/* NOTION · clean doc, sans, blue accent */
-html[data-design="notion"] {
+/* DOC · clean doc, sans, blue accent */
+html[data-design="doc"] {
   --font-display: 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
   --bg: #FFFFFF;
@@ -2071,7 +2071,7 @@ html[data-design="vision"] {
 }
 
 /* =====================================================================
-   LAYOUT: NOTION · clean doc with TOC sidebar
+   LAYOUT: DOC · clean doc with TOC sidebar
    ===================================================================== */
 .n-layout {
   display: grid;
@@ -3062,7 +3062,7 @@ html[data-design="vision"] body {
 /* =====================================================================
    DESIGN TOKENS — batch 3
    ===================================================================== */
-html[data-design="polaroid"] {
+html[data-design="scrapbook"] {
   --font-display: 'Caveat', 'Marker Felt', cursive;
   --font-body: 'Inter', sans-serif;
   --bg: #F2EAD8; --bg-2: #FFFEF8;
@@ -3170,7 +3170,7 @@ html[data-design="kanban"] {
   --secondary-bg: rgba(255, 255, 255, .9); --secondary-text: #172B4D; --secondary-border: rgba(9, 30, 66, .15);
 }
 
-html[data-design="spotify"] {
+html[data-design="studio"] {
   --font-display: 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
   --bg: #121212; --bg-2: #181818;
@@ -3813,8 +3813,8 @@ html[data-design="pixel"] {
    below override for the OPPOSITE theme.
    ===================================================================== */
 
-/* MAINOVA · default LIGHT, add DARK */
-html[data-design="mainova"][data-theme="dark"] {
+/* DOSSIER · default LIGHT, add DARK */
+html[data-design="dossier"][data-theme="dark"] {
   --bg: #061429; --bg-2: #0F2447;
   --surface: #14304F; --surface-strong: #1B3D63; --surface-elevated: #14304F;
   --nav-bg: rgba(6, 20, 41, .9);
@@ -3854,8 +3854,8 @@ html[data-design="brutalist"][data-theme="dark"] {
   --secondary-bg: #1A1A1A; --secondary-text: #F2EFE8; --secondary-border: #F2EFE8;
 }
 
-/* NOTION · default LIGHT, add DARK */
-html[data-design="notion"][data-theme="dark"] {
+/* DOC · default LIGHT, add DARK */
+html[data-design="doc"][data-theme="dark"] {
   --bg: #191919; --bg-2: #2F3437;
   --surface: #2F3437; --surface-strong: #373C3F; --surface-elevated: #2F3437;
   --nav-bg: rgba(25, 25, 25, .92);
@@ -3895,8 +3895,8 @@ html[data-design="vision"][data-theme="dark"] .v-aux-row { border-top-color: rgb
 html[data-design="vision"][data-theme="dark"] .v-btn { background: rgba(40, 30, 80, .6); color: var(--text-strong); border-color: rgba(180, 160, 240, .35); }
 html[data-design="vision"][data-theme="dark"] .v-btn-primary { background: var(--text-strong); color: var(--bg); border-color: var(--text-strong); }
 
-/* POLAROID · default LIGHT (cork board), add DARK (dark wood) */
-html[data-design="polaroid"][data-theme="dark"] {
+/* SCRAPBOOK · default LIGHT (cork board), add DARK (dark wood) */
+html[data-design="scrapbook"][data-theme="dark"] {
   --bg: #1F1812; --bg-2: #2A211A;
   --text: #F2EAD8; --text-strong: #FAF4E4; --text-muted: #9C8E78; --text-soft: #C8B894;
   --nav-bg: rgba(31, 24, 18, .92);
@@ -4102,8 +4102,8 @@ html[data-design="gameui"][data-theme="light"] .g-portrait { box-shadow: 0 4px 1
 html[data-design="gameui"][data-theme="light"] .g-bar span { box-shadow: 0 0 6px rgba(31, 139, 14, .35); }
 html[data-design="gameui"][data-theme="light"] .g-class, html[data-design="gameui"][data-theme="light"] .g-id h1, html[data-design="gameui"][data-theme="light"] .g-quest-status.active, html[data-design="gameui"][data-theme="light"] .g-panel-head h2, html[data-design="gameui"][data-theme="light"] .g-stat b, html[data-design="gameui"][data-theme="light"] .g-achievement { text-shadow: none; }
 
-/* SPOTIFY · default DARK, add LIGHT (white spotify) */
-html[data-design="spotify"][data-theme="light"] {
+/* STUDIO · default DARK, add LIGHT (white studio) */
+html[data-design="studio"][data-theme="light"] {
   --bg: #F5F5F5; --bg-2: #FFFFFF;
   --surface: #FFFFFF; --surface-strong: #ECECEC; --surface-elevated: #FFFFFF;
   --nav-bg: rgba(245, 245, 245, .92); --nav-blur: blur(12px);
@@ -4115,11 +4115,11 @@ html[data-design="spotify"][data-theme="light"] {
   --primary-bg: #1DB954; --primary-text: #000000;
   --secondary-bg: transparent; --secondary-text: #000000; --secondary-border: #000000;
 }
-html[data-design="spotify"][data-theme="light"] .sp-cover { box-shadow: 0 24px 56px rgba(0, 0, 0, .25); }
-html[data-design="spotify"][data-theme="light"] .sp-track-art { background: linear-gradient(135deg, #1DB954, #11833F); }
-html[data-design="spotify"][data-theme="light"] .sp-genres span { background: var(--surface-strong); color: var(--text-strong); }
-html[data-design="spotify"][data-theme="light"] .sp-tag { background: var(--surface-strong); color: var(--text-soft); }
-html[data-design="spotify"][data-theme="light"] .sp-explicit { background: var(--text-soft); color: var(--bg); }
+html[data-design="studio"][data-theme="light"] .sp-cover { box-shadow: 0 24px 56px rgba(0, 0, 0, .25); }
+html[data-design="studio"][data-theme="light"] .sp-track-art { background: linear-gradient(135deg, #1DB954, #11833F); }
+html[data-design="studio"][data-theme="light"] .sp-genres span { background: var(--surface-strong); color: var(--text-strong); }
+html[data-design="studio"][data-theme="light"] .sp-tag { background: var(--surface-strong); color: var(--text-soft); }
+html[data-design="studio"][data-theme="light"] .sp-explicit { background: var(--text-soft); color: var(--bg); }
 
 /* TRADING · default DARK, add LIGHT */
 html[data-design="trading"][data-theme="light"] {
