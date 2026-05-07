@@ -46,7 +46,7 @@ const data = {
       { period: '10/2009 – 04/2013', institution: 'Technische Universität Darmstadt', title: 'Bachelor of Science Informatik', grade: 'Durchschnitt: 2,5', details: ['Bachelor Thesis: Delay-tolerante Datenübertragung in mobilen Sensornetzen, verfasst in Deutsch'] },
       { period: '1996 – 2009', institution: 'Willibrord Gymnasium Emmerich, NRW', title: 'Abitur', grade: 'Durchschnitt: 2,3', details: ['Abiturfächer: Mathe LK, Geschichte LK, Englisch, Informatik'] }
     ],
-    skills: [{ group: 'Programmiersprachen', icon: Code2, items: ['Objective-C','Swift','C / C++','C#','Java','JavaScript','TypeScript','PHP','ASP.NET'] }, { group: 'Systeme & Frameworks', icon: Building2, items: ['Linux-Serveradministration','Windows-Serveradministration','Polymer','ReactJS','Vue.js','Symfony','Laravel','Node.js','Chromium Embedded Framework'] }],
+    skills: [{ group: 'Programmiersprachen', icon: Code2, items: ['Objective-C','Swift','C / C++','C#','Java','JavaScript','TypeScript','PHP','ASP.NET'] }, { group: 'Systeme & Frameworks', icon: Building2, items: ['Linux-Serveradministration','Windows-Serveradministration','Polymer','ReactJS','Vue.js','Symfony','Laravel','Node.js','Chromium Embedded Framework','Immersive Erfahrungen','Gaussian Splats'] }],
     spokenLanguages: ['Deutsch', 'Englisch in Wort und Schrift'], hobbies: [{ label: 'Badminton', icon: Dumbbell }, { label: 'Drohne fliegen', icon: Plane }, { label: 'Gitarre spielen', icon: Guitar }, { label: '3D-Druck', icon: Box }]
   },
 };
@@ -78,7 +78,7 @@ data.en = {
     { period:'10/2009 – 04/2013', institution:'Technical University of Darmstadt', title:'Bachelor of Science Computer Science', grade:'Grade average: 2.5', details:['Bachelor thesis: Delay-tolerant data transmission in mobile sensor networks, written in German'] },
     { period:'1996 – 2009', institution:'Willibrord Gymnasium Emmerich, NRW', title:'Abitur / German university entrance qualification', grade:'Grade average: 2.3', details:['Exam subjects: Mathematics advanced course, History advanced course, English, Computer Science'] }
   ],
-  skills: [{ group: 'Programming Languages', icon: Code2, items: data.de.skills[0].items }, { group: 'Systems & Frameworks', icon: Building2, items: ['Linux server administration','Windows server administration','Polymer','ReactJS','Vue.js','Symfony','Laravel','Node.js','Chromium Embedded Framework'] }],
+  skills: [{ group: 'Programming Languages', icon: Code2, items: data.de.skills[0].items }, { group: 'Systems & Frameworks', icon: Building2, items: ['Linux server administration','Windows server administration','Polymer','ReactJS','Vue.js','Symfony','Laravel','Node.js','Chromium Embedded Framework','Immersive Experiences','Gaussian Splats'] }],
   spokenLanguages: ['German', 'English spoken and written'], hobbies: [{ label: 'Badminton', icon: Dumbbell }, { label: 'Flying drones', icon: Plane }, { label: 'Playing guitar', icon: Guitar }, { label: '3D printing', icon: Box }]
 };
 
