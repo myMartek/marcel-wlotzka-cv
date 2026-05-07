@@ -5,7 +5,7 @@ import {
   Briefcase, GraduationCap, Code2, Languages, MapPin, Calendar, Award,
   ChevronRight, Download, Mail, Globe2, Search, Sparkles, UserRound,
   Menu, X, Guitar, Plane, Dumbbell, Building2, Sun, Moon, Palette, Check,
-  ArrowRight, Quote, Terminal as TerminalIcon,
+  ArrowRight, Quote, Terminal as TerminalIcon, Box,
 } from 'lucide-react';
 import './styles.css';
 
@@ -47,7 +47,7 @@ const data = {
       { period: '1996 – 2009', institution: 'Willibrord Gymnasium Emmerich, NRW', title: 'Abitur', grade: 'Durchschnitt: 2,3', details: ['Abiturfächer: Mathe LK, Geschichte LK, Englisch, Informatik'] }
     ],
     skills: [{ group: 'Programmiersprachen', icon: Code2, items: ['Objective-C','Swift','C / C++','C#','Java','JavaScript','TypeScript','PHP','ASP.NET'] }, { group: 'Systeme & Frameworks', icon: Building2, items: ['Linux-Serveradministration','Windows-Serveradministration','Polymer','ReactJS','Vue.js','Symfony','Laravel','Node.js','Chromium Embedded Framework'] }],
-    spokenLanguages: ['Deutsch', 'Englisch in Wort und Schrift'], hobbies: [{ label: 'Badminton', icon: Dumbbell }, { label: 'Drohne fliegen', icon: Plane }, { label: 'Gitarre spielen', icon: Guitar }]
+    spokenLanguages: ['Deutsch', 'Englisch in Wort und Schrift'], hobbies: [{ label: 'Badminton', icon: Dumbbell }, { label: 'Drohne fliegen', icon: Plane }, { label: 'Gitarre spielen', icon: Guitar }, { label: '3D-Druck', icon: Box }]
   },
 };
 
@@ -79,7 +79,7 @@ data.en = {
     { period:'1996 – 2009', institution:'Willibrord Gymnasium Emmerich, NRW', title:'Abitur / German university entrance qualification', grade:'Grade average: 2.3', details:['Exam subjects: Mathematics advanced course, History advanced course, English, Computer Science'] }
   ],
   skills: [{ group: 'Programming Languages', icon: Code2, items: data.de.skills[0].items }, { group: 'Systems & Frameworks', icon: Building2, items: ['Linux server administration','Windows server administration','Polymer','ReactJS','Vue.js','Symfony','Laravel','Node.js','Chromium Embedded Framework'] }],
-  spokenLanguages: ['German', 'English spoken and written'], hobbies: [{ label: 'Badminton', icon: Dumbbell }, { label: 'Flying drones', icon: Plane }, { label: 'Playing guitar', icon: Guitar }]
+  spokenLanguages: ['German', 'English spoken and written'], hobbies: [{ label: 'Badminton', icon: Dumbbell }, { label: 'Flying drones', icon: Plane }, { label: 'Playing guitar', icon: Guitar }, { label: '3D printing', icon: Box }]
 };
 
 const LINKEDIN = 'linkedin.com/in/marcel-wlotzka-5b61a0a4';
